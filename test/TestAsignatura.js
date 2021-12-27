@@ -8,19 +8,41 @@ contract('Asignatura:', accounts => {
     let asignatura;
 
     before(async () => {
-        asignatura = await Asignatura.deployed();
-        // console.log("Asignatura =", asignatura.address);
+      asignatura = await Asignatura.deployed();
+      // console.log("Asignatura =", asignatura.address);
+
+      
+      let owner = await asignatura.owner();
+      let profesor;
+      try {
+        profesor = await asignatura.profesores(0);
+      } catch (e) {
+          console.log("No hay profesores");
+      }
+      if (profesor != owner) {
+          await asignatura.addProfesor(owner, 'Pepe Perez');
+      }
     });
 
 
-    it("El profesor es el que despliego el contrato",  async () => {
+    it("El owner es el que despliego el contrato",  async () => {
 
-        let profesor = await asignatura.profesor();
+        let owner = await asignatura.owner();
         
         let desplegador = accounts[0];
 
-        assert.equal(profesor, desplegador,"El profesor debe ser quien despliega en contrato.");
+        assert.equal(owner, desplegador,"El owner debe ser quien despliega en contrato.");
     })
+
+
+    it("El primer profesor es el owner",  async () => {
+
+        let owner = await asignatura.owner();
+        let profesor = await asignatura.profesores(0);
+
+        assert.equal(owner, profesor,"El profesor debe ser el owner.");
+    })
+    
 
 
     it("La asignatura es BCDA del curso 2020-2021",  async () => {
@@ -71,8 +93,18 @@ contract('Asignatura:', accounts => {
         let evaAccount = accounts[1];
         let pepeAccount = accounts[2];
 
-        await asignatura.automatricula("Eva Gomez", "eva_gomez_00@gmail.com", {from: evaAccount});
-        await asignatura.automatricula("Jose Ortega", "josore_99@gmail.com", {from: pepeAccount});
+        await asignatura.automatricula(
+          "Eva Gomez",
+          "eva_gomez_00@gmail.com",
+          "00000001",
+          { from: evaAccount }
+        );
+        await asignatura.automatricula(
+          "Jose Ortega",
+          "josore_99@gmail.com",
+          "00000002",
+          { from: pepeAccount }
+        );
 
         let numMatriculas = await asignatura.matriculasLength();
         assert.equal(numMatriculas, 2, "Tiene que haber dos alumnos matriculados.");

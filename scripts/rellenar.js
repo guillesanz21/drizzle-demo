@@ -11,8 +11,22 @@ module.exports = async callback => {
 
         let asignatura = await Asignatura.deployed();
 
-        // Identificar al profesor:
-        let profesor = await asignatura.profesor();
+        // Identificar al owner
+        let owner = await asignatura.owner();
+        console.log("Cuenta del owner =", owner);
+
+        // Añadir al owner como profesor:
+        let profesor;
+        try {
+          profesor = await asignatura.profesores(0);
+        } catch (e) {
+          console.log("No hay profesores");
+        }
+        console.log("Añadiendo profesor...");
+        if (profesor != owner) {
+          await asignatura.addProfesor(owner, "Pepe Perez");
+        }
+        profesor = await asignatura.profesores(0);
         console.log("Cuenta del profesor =", profesor);
 
         console.log("Crear dos evaluaciones:");
@@ -24,8 +38,8 @@ module.exports = async callback => {
         let pepeAccount = accounts[2];
         console.log("Cuenta de Eva =", evaAccount);
         console.log("Cuenta de Pepe =", pepeAccount);
-        await asignatura.automatricula("Eva Martinez", "em@dominio.es", {from: evaAccount});
-        await asignatura.automatricula("Jose Redondo", "jr@stio.com", {from: pepeAccount});
+        await asignatura.automatricula("Eva Martinez", "em@dominio.es", '00000001', {from: evaAccount});
+        await asignatura.automatricula("Jose Redondo", "jr@stio.com", '00000002', {from: pepeAccount});
 
         console.log("Añadir calificaciones:");
         await asignatura.califica(evaAccount, 0, 1, 65);
