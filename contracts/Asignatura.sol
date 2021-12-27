@@ -292,6 +292,16 @@ contract Asignatura {
     }
 
     /**
+     * Comprobar si el que envía esta transacción es profesor
+     * Returns: Address del autor de la transacción y si es profesor (true)
+     */
+    function esProfesor() public view returns (address, bool) {
+        return (msg.sender, bytes(datosProfesor[msg.sender]).length > 0);
+    }
+
+
+
+    /**
      * Poner la nota de un alumno en una evaluacion.
      *
      * @param alumno La direccion del alumno.
