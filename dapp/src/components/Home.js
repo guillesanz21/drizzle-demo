@@ -159,7 +159,7 @@ const SoloOwner = ({ children, owner }) => {
       units="ether"
       precision={3}
       render={({ address, balance, units }) => {
-        if (owner) {
+        if (address === owner) {
           return <>{children}</>;
         } else {
           return (
