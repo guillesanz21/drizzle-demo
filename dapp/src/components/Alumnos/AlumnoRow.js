@@ -21,6 +21,7 @@ const AlumnoRow = ({alumnoIndex, alumnoAddr}) => {
             render={datos => <>
                 <td>{datos.nombre}</td>
                 <td>{datos.email}</td>
+                <td>{datos.DNI}</td>
             </>}
         />
         <td><Link to={`/alumnos/${alumnoAddr}`}>Info</Link></td>

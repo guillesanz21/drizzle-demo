@@ -4,7 +4,7 @@ import { newContextComponents } from "@drizzle/react-components";
 const { ContractData, AccountData } = newContextComponents;
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
-const SoloCoordinador = ({ children, coordinador }) => {
+const SoloCoordinador = ({ children }) => {
   const { drizzle } = useDrizzle();
   const drizzleState = useDrizzleState((state) => state);
 
