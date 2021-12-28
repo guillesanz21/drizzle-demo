@@ -62,14 +62,25 @@ const AlumnoNotas = ({ alumnoIndex, ev }) => {
             methodArgs={[alumno, ev]}
             render={({ tipo, calificacion }) => {
               return (
-                <li>
-                  Alumno: <em>{alumno}</em>:
-                  <ul>
-                    <li>
-                      Nota (sobre 100): <b>{calificacion}</b>
-                    </li>
-                  </ul>
-                </li>
+                <ContractData
+                  drizzle={drizzle}
+                  drizzleState={drizzleState}
+                  contract={"Asignatura"}
+                  method={"datosAlumno"}
+                  methodArgs={[alumno]}
+                  render={({ nombre, email, DNI }) => {
+                    return (
+                      <li>
+                        Alumno: <em>{nombre}</em>:
+                        <ul>
+                          <li>
+                            Nota (sobre 100): <b>{calificacion}</b>
+                          </li>
+                        </ul>
+                      </li>
+                    );
+                  }}
+                />
               );
             }}
           />
