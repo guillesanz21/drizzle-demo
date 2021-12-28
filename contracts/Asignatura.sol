@@ -295,6 +295,9 @@ contract Asignatura {
      * Comprobar si el que envía esta transacción es profesor
      * Returns: Address del autor de la transacción y si es profesor (true)
      */
+    // function esProfesor(address a_profesor) public view returns (bool) {
+    //     return (bytes(datosProfesor[a_profesor]).length > 0);
+    // }
     function esProfesor() public view returns (address, bool) {
         return (msg.sender, bytes(datosProfesor[msg.sender]).length > 0);
     }

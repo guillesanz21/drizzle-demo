@@ -1,7 +1,10 @@
 import { drizzleReactHooks } from "@drizzle/react-plugin";
 import { newContextComponents } from "@drizzle/react-components";
 
-const { ContractData, ContractForm, AccountData } = newContextComponents;
+import SoloCoordinador from "./Comprobaciones/SoloCoordinador";
+import SoloOwner from "./Comprobaciones/SoloOwner";
+
+const { ContractData, ContractForm } = newContextComponents;
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
@@ -61,7 +64,7 @@ const FormDireccion = ({ owner }) => {
   return (
     <article>
       <h4>Cambiar el coordinador de la asignatura</h4>
-      <SoloOwner owner={owner}>
+      <SoloOwner>
         <ContractForm
           drizzle={drizzle}
           drizzleState={drizzleState}
@@ -73,7 +76,6 @@ const FormDireccion = ({ owner }) => {
     </article>
   );
 };
-
 
 // ################ ESTADO ASIGNATURA ################
 const EstadoAsignatura = ({ coordinador }) => {
@@ -107,7 +109,7 @@ const FormEstadoAsignatura = ({ coordinador }) => {
   return (
     <article>
       <h4>Cerrar la asignatura</h4>
-      <SoloCoordinador coordinador={coordinador}>
+      <SoloCoordinador>
         <ContractForm
           drizzle={drizzle}
           drizzleState={drizzleState}
@@ -117,59 +119,6 @@ const FormEstadoAsignatura = ({ coordinador }) => {
         />
       </SoloCoordinador>
     </article>
-  );
-};
-
-// ################ CHECK COORDINADOR AND CHECK OWNER ################
-const SoloCoordinador = ({ children, coordinador }) => {
-  const { drizzle } = useDrizzle();
-  const drizzleState = useDrizzleState((state) => state);
-
-  return (
-    <AccountData
-      drizzle={drizzle}
-      drizzleState={drizzleState}
-      accountIndex={0}
-      units="ether"
-      precision={3}
-      render={({ address, balance, units }) => {
-        if (address === coordinador) {
-          return <>{children}</>;
-        } else {
-          return (
-            <p>
-              <em>No eres coordinador</em>
-            </p>
-          );
-        }
-      }}
-    />
-  );
-};
-
-const SoloOwner = ({ children, owner }) => {
-  const { drizzle } = useDrizzle();
-  const drizzleState = useDrizzleState((state) => state);
-
-  return (
-    <AccountData
-      drizzle={drizzle}
-      drizzleState={drizzleState}
-      accountIndex={0}
-      units="ether"
-      precision={3}
-      render={({ address, balance, units }) => {
-        if (address === owner) {
-          return <>{children}</>;
-        } else {
-          return (
-            <p>
-              <em>No eres el propietario del contrato</em>
-            </p>
-          );
-        }
-      }}
-    />
   );
 };
 

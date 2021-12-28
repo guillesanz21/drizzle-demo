@@ -3,45 +3,11 @@ import { useState } from "react";
 import { drizzleReactHooks } from "@drizzle/react-plugin";
 import { newContextComponents } from "@drizzle/react-components";
 
-const { ContractData, ContractForm } = newContextComponents;
+import SoloProfesor from "../Comprobaciones/SoloProfesor";
+
+const { ContractForm } = newContextComponents;
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
-const SoloProfesor = ({ children }) => {
-  const { drizzle } = useDrizzle();
-  const drizzleState = useDrizzleState((state) => state);
-
-  //   return (
-  //     <ContractData
-  //       drizzle={drizzle}
-  //       drizzleState={drizzleState}
-  //       contract={"Asignatura"}
-  //       method={"profesores"}
-  //       methodArgs={[0]}
-  //       render={(addr) => {
-  //         if (addr !== drizzleState.accounts[0]) {
-  //           return <p>"NO SOY EL PROFE"</p>;
-  //         }
-  //         return <>{children}</>;
-  //       }}
-  //     />
-  //   );
-  return (
-    <ContractData
-      drizzle={drizzle}
-      drizzleState={drizzleState}
-      contract={"Asignatura"}
-      method={"esProfesor"}
-      render={(result) => {
-        //   let addr = result[0];
-          let esProfesor = result[1];
-        if (!esProfesor) {
-          return <p>"NO SOY EL PROFE"</p>;
-        }
-        return <>{children}</>;
-      }}
-    />
-  );
-};
 
 export const CalificarV0 = () => {
   const { drizzle } = useDrizzle();
