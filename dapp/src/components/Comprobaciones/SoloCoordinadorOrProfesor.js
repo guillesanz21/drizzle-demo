@@ -31,10 +31,6 @@ const SoloProfesor = ({ children }) => {
                   method={"esProfesor"}
                   render={(result) => {
                     let esProfesor = result[1];
-                    console.log("Es coordinador: ");
-                    console.log(address === coordinador);
-                    console.log("Es profesor: ");
-                    console.log(esProfesor);
                     if (address === coordinador || esProfesor) {
                       return <>{children}</>;
                     } else {

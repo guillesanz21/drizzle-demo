@@ -1,6 +1,8 @@
 import {drizzleReactHooks} from '@drizzle/react-plugin'
 import {newContextComponents} from "@drizzle/react-components";
 
+import AlumnoMatriculado from '../Comprobaciones/AlumnoMatriculado';
+
 const {ContractData} = newContextComponents;
 const {useDrizzle, useDrizzleState} = drizzleReactHooks;
 
@@ -9,19 +11,23 @@ const MisNotas = () => {
     const drizzleState = useDrizzleState(state => state);
 
     return (
-        <section className="AppMisNotas">
-            <h3>Mis Notas</h3>
-            <ContractData
-                drizzle={drizzle}
-                drizzleState={drizzleState}
-                contract={"Asignatura"}
-                method={"evaluacionesLength"}
-                render={el => <table>
-                    <MisNotasHead evaluacionesLength={el}/>
-                    <MisNotasBody evaluacionesLength={el}/>
-                </table>}
-            />
-        </section>
+      <section className="AppMisNotas">
+        <h3>Mis Notas</h3>
+        <AlumnoMatriculado>
+          <ContractData
+            drizzle={drizzle}
+            drizzleState={drizzleState}
+            contract={"Asignatura"}
+            method={"evaluacionesLength"}
+            render={(el) => (
+              <table>
+                <MisNotasHead evaluacionesLength={el} />
+                <MisNotasBody evaluacionesLength={el} />
+              </table>
+            )}
+          />
+        </AlumnoMatriculado>
+      </section>
     );
 };
 
