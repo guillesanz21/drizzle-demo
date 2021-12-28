@@ -5,6 +5,7 @@ import Loading from './Loading';
 import Layout from './Layout';
 import Home from './Home';
 import Evaluaciones from "./Evaluaciones/Evaluaciones";
+import Evaluacion from "./Evaluaciones/Evaluacion";
 import {Alumnos, Alumno} from "./Alumnos/Alumnos";
 import Calificaciones from "./Calificaciones/Calificaciones";
 import MisCosas from "./MisCosas/MisCosas";
@@ -19,6 +20,7 @@ function App() {
                         <Route path="/" element={<Layout/>}>
                             <Route index element={<Home/>}/>
                             <Route path="evaluaciones" element={<Evaluaciones/>}/>
+                            <Route path="evaluaciones/:ev" element={<Evaluacion/>}/>
                             <Route path="alumnos" element={<Alumnos/>}/>
                             <Route path="alumnos/:addr" element={<Alumno/>}/>
                             <Route path="calificaciones" element={<Calificaciones/>}/>
