@@ -1,0 +1,43 @@
+Integrantes del grupo:
+    Javier Contreras Fernandez-Cid
+    Guillermo Sanz Gonzalez
+
+Se han realizado todas las mejoras:
+* Punto 2:
+    - Para esta mejora se ha añadido un Link en la tabla de evaluaciones, en la ruta "/evaluaciones" 
+    (componente EvaluacionRow).
+    - Este Link apunta a /evaluaciones/:ev, por lo que se ha añadido esta ruta al componente App. El parámetro
+    :ev indica el índice de evaluación de la evaluación seleccionada. Esta ruta renderiza el componente Evaluacion.
+    - Se ha creado una comprobación llamada SoloCoordinadorOrProfesor, en la carpeta comprobaciones, que comprueba
+    si el usuario (la cuenta seleccionada en Metamask) es profesor o coordinador.
+    - En el fichero "evaluaciones/Evaluacion.js" se encuentra el resto de la funcionalidad:
+        + Se ha recuperado el valor "matriculasLength".
+        + Se ha recorrido el array de "matriculas" donde están las direcciones de los alumnos.
+        + Con el índice de la evaluación (:ev) y la dirección del alumno, se recupera sus calificaciones.
+        + Además, se recupera el nombre del alumno a través de su address.
+
+* Punto 3:
+    - La funcionalidad descrita se corresponde con la que se desarrolla en el apartado "Mis Cosas".
+    - Para completar la funcionalidad descrita, se ha añadido una comprobación: AlumnoMatriculado.
+
+* Punto 4:
+    - En el apartado Calificaciones aparece la funcionalidad descrita.
+    - Toda la funcionalidad está en el componente CalificacionRow.
+        + Se ha creado un componente nuevo llamado NotaField.
+        + En este componente se comprueba si es profesor y si es, se muestra un botón "Editar". Si no, no. Este botón
+        está en cada evaluación.
+        + Si se pulsa, se muestra un formulario para cambiar la nota (dos inputs: tipo y calificación). El address
+        y el índice de evaluación se pasan al componente NotaField.
+
+
+Otras cosas:
+    - Se han separado las comprobaciones de autorización en una carpeta llamada "Comprobaciones".
+    - Para que un alumno se pueda matricular, se ha añadido la comprobación de que no esté previamente matriculado.
+    - Se cambió la comprobación en Calificar.js de si se es profesor, para ajustarla a los nuevos cambios del contrato respecto a la versión de 2020.
+    - Se cambiaron algunas cosas del script "script/rellenar.js" y del test "test/TestAsignatura.js" para que funcione
+    acorde al contrato actualizado.
+    - También se añadió la columna del DNI a la tabla de alumnos y el punto en el listado de datos de un alumno.
+    - El punto 1.2. está contenido todo en Home.js
+    - El punto 1.3. está contenido Evaluaciones.js (componente EvaluacionesForm). Para esta funcionalidad se ha hecho
+    uso del método cacheSend (para poder formatear la fecha automáticamente más fácilmente)
+    - El punto 1.4. está contenido en el nuevo componente Matricular en Alumnos.js
